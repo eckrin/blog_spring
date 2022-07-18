@@ -10,10 +10,10 @@ server:
       force: true
 
 spring:
-#  mvc:
-#    view:
-#      prefix: /WEB-INF/views/
-#      suffix: .jsp
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/blog?serverTimezone=Asia/Seoul
@@ -21,7 +21,7 @@ spring:
     password: dudqls11@
 
   jpa:
-    open-in-view: true
+    open-in-view: true # 영속성을 컨트롤러까지 갖고감(6)
     hibernate:
       ddl-auto: update # 실행시 table 새로 생성
       naming:

@@ -23,7 +23,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY) //numbering전략: DB의 전략 따라가기
     private int id; //sequence, auto_increment
 
-    @Column(nullable=false, length = 30)
+    @Column(nullable=false, length = 30, unique = true)
     private String username; //아이디
 
     @Column(nullable = false, length = 100) //해시를 이용하여 암호화

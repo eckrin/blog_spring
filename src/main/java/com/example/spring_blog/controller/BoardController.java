@@ -1,13 +1,13 @@
-package com.example.spring_blog.test;
+package com.example.spring_blog.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class TempControllerTest {
+public class BoardController {
 
-    @GetMapping("/temp/noJSP")
-    public String tempJsp() {
+    @GetMapping({"","/"})
+    public String index() {
         return "index";
     }
 }
