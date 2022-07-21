@@ -22,14 +22,14 @@ let index = {
         //ajax가 통신을 성공하고 서버가 json을 리턴해주면 자동으로 자바 오브텍트로 변환
         $.ajax({
             type: "POST",
-            url: "/blog/api/user",
+            url: "/api/user",
             data: JSON.stringify(data), //js를 json으로 변경. http body 데이터 타입
             contentType: "application/json;charset=utf-8",
             dataType: "json" //응답 형태가 json형 문자열이라면 js로 변환해줌 >> 생략가능
         }).done(function(resp){
             alert("회원가입이 완료되었습니다.");
             console.log(resp);
-            location.href="/blog";
+            location.href="/";
         }).fail(function(error){
             alert(JSON.stringify(error));
         });
@@ -43,14 +43,14 @@ let index = {
 
         $.ajax({
             type: "POST",
-            url: "/blog/api/user/login",
+            url: "/api/user/login",
             data: JSON.stringify(data), //js를 json으로 변경. http body 데이터 타입
             contentType: "application/json;charset=utf-8",
             dataType: "json" //응답 형태가 json형 문자열이라면 js로 변환해줌 >> 생략가능
         }).done(function(resp){
             alert("로그인이 완료되었습니다.");
             console.log(resp);
-            location.href="/blog";
+            location.href="/";
         }).fail(function(error){
             alert(JSON.stringify(error));
         });
