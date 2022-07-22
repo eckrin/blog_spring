@@ -3,6 +3,7 @@ package com.example.spring_blog.controller.api;
 import com.example.spring_blog.dto.ResponseDto;
 import com.example.spring_blog.model.RoleType;
 import com.example.spring_blog.model.User;
+import com.example.spring_blog.service.BoardService;
 import com.example.spring_blog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

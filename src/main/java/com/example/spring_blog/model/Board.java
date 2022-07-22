@@ -28,7 +28,7 @@ public class Board {
     @Lob //대용량 데이터 관리
     private String content; //섬머노트 라이브러리 <html>태그 섞여서 디자인 >> 용량 커짐
 
-    @ColumnDefault("0")
+    //@Column
     private int count; //조회수
 
     @ManyToOne(fetch = FetchType.EAGER) //즉시로딩

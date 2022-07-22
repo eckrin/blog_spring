@@ -1,13 +1,31 @@
 package com.example.spring_blog.controller;
 
+import com.example.spring_blog.service.BoardService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class BoardController {
 
+    @Autowired
+    private BoardService boardService;
+
+    //컨트롤러에서 세션을 어떻게 찾는지?
+    //@AuthenticationPrincipal PrincipalDetail principal
     @GetMapping({"","/"})
-    public String index() {
+    public String index(Model model, @PageableDefault(size=3, sort="id", direction = Sort.Direction.DESC) Pageable pageable) {
+        model.addAttribute("boards", boardService.list(pageable));
+        // /WEB-INF/views/index.jsp
         return "index";
+    }
+
+    @GetMapping("/board/saveForm")
+    public String saveForm() {
+        return "board/saveForm";
     }
 }
