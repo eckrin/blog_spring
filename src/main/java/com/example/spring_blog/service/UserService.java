@@ -1,8 +1,10 @@
 package com.example.spring_blog.service;
 
+import com.example.spring_blog.model.RoleType;
 import com.example.spring_blog.model.User;
 import com.example.spring_blog.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,13 +15,20 @@ public class UserService {
     @Autowired //DI
     private UserRepository userRepository;
 
+    @Autowired //의존성 주입
+    private BCryptPasswordEncoder encode;
+
     @Transactional
     public void join(User user) {
+        String rawPassword = user.getPassword();
+        String encPassword = encode.encode(rawPassword); //pw 해시화
+        user.setRole(RoleType.USER);
+        user.setPassword(encPassword);
         userRepository.save(user);
     }
 
-    @Transactional(readOnly = true) //트랜잭션의 정합성 유지
-    public User login(User user) {
-        return userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
-    }
+//    @Transactional(readOnly = true) //트랜잭션의 정합성 유지
+//    public User login(User user) {
+//        return userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
+//    }
 }

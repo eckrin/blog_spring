@@ -27,15 +27,15 @@ dependencies {
 	runtimeOnly 'mysql:mysql-connector-java'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-//	testImplementation 'org.springframework.security:spring-security-test'
-//	implementation 'org.springframework.boot:spring-boot-starter-security'
+	testImplementation 'org.springframework.security:spring-security-test'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
 
 //	JSP 템플릿 엔진
 	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
 //	JSTL
 	implementation 'javax.servlet:jstl'
 //	시큐리티 태그
-//	implementation 'org.springframework.security:spring-security-taglibs'
+	implementation 'org.springframework.security:spring-security-taglibs'
 
 }
 
