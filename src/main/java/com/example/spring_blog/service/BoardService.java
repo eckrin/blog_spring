@@ -1,5 +1,6 @@
 package com.example.spring_blog.service;
 
+import com.example.spring_blog.config.auth.PrincipalDetail;
 import com.example.spring_blog.model.Board;
 import com.example.spring_blog.model.User;
 import com.example.spring_blog.repository.BoardRepository;
@@ -42,5 +43,17 @@ public class BoardService {
     public void delete(int id) {
         log.info("{}", id);
         boardRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void edit(int id, Board requestBoard) {
+        Board board = boardRepository.findById(id)
+                .orElseThrow(()-> {
+                    return new IllegalArgumentException("글 찾기 실패: 아이디를 찾을 수 없음");
+                }); //영속화 완료
+        board.setTitle(requestBoard.getTitle());
+        board.setContent(requestBoard.getContent());
+//        boardRepository.save(board); //더티체킹으로 필요없나봄
+        //해당 함수 종료시 트랜잭션 종료, 더티체킹
     }
 }
