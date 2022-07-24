@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,11 +22,18 @@ public class UserApiController {
     private UserService userService;
 
     @PostMapping("/auth/joinProc")
-    public ResponseDto<Integer> save(@RequestBody User user) {
-        System.out.println("UserApiController:save 호출됨");
+    public ResponseDto<Integer> save(@RequestBody User user) { //JSON 데이터 받기
+//        System.out.println("UserApiController:save 호출됨");
         user.setRole(RoleType.USER); //자동주입이 안되는 필드 주입
         userService.join(user);//js로 받은 json을 그대로 전달
 
+        return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+    }
+
+    @PutMapping("/user")
+    public ResponseDto<Integer> update(@RequestBody User user) {
+        userService.update(user);
+        //트랜잭션 종료시 DB값은 변경되지만 세션값은 변경되지 않아서 화면갱신 X
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }
 

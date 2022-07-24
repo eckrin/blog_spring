@@ -3,6 +3,9 @@ let index = {
         $("#btn_save").on("click", ()=> {
             this.save();
         });
+        $("#btn_update").on("click", ()=> {
+            this.update();
+        });
 //        $("#btn_login").on("click", ()=> {
 //            this.login();
 //        });
@@ -34,6 +37,29 @@ let index = {
             alert(JSON.stringify(error));
         });
     },
+
+    update: function() {
+//        alert("user의 save함수 호출됨");
+        let data = {
+            id:$("#id").val(),
+            password:$("#password").val(),
+            email:$("#email").val()
+        }
+
+        $.ajax({
+            type: "PUT",
+            url: "/user",
+            data: JSON.stringify(data),
+            contentType: "application/json;charset=utf-8",
+            dataType: "json"
+        }).done(function(resp){
+            alert("회원수정이 완료되었습니다.");
+            console.log(resp);
+            location.href="/";
+        }).fail(function(error){
+            alert(JSON.stringify(error));
+        });
+    }
 
 //    login: function() {
 //        let data = {
