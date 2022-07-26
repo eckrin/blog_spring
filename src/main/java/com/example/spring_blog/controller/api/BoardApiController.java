@@ -1,8 +1,10 @@
 package com.example.spring_blog.controller.api;
 
 import com.example.spring_blog.config.auth.PrincipalDetail;
+import com.example.spring_blog.dto.ReplySaveRequestDto;
 import com.example.spring_blog.dto.ResponseDto;
 import com.example.spring_blog.model.Board;
+import com.example.spring_blog.model.Reply;
 import com.example.spring_blog.model.RoleType;
 import com.example.spring_blog.model.User;
 import com.example.spring_blog.service.BoardService;
@@ -20,7 +22,6 @@ public class BoardApiController {
 
     @PostMapping("/api/board")
     public ResponseDto<Integer> save(@RequestBody Board board, @AuthenticationPrincipal PrincipalDetail principal) {
-
         boardService.write(board, principal.getUser());
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }
@@ -34,6 +35,15 @@ public class BoardApiController {
     @PutMapping("/api/board/{id}")
     public ResponseDto<Integer> update(@PathVariable int id, @RequestBody Board board) {
         boardService.edit(id, board);
+        return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+    }
+
+    //데이터를 받을 때 DTO를 만들어주는것이 좋음
+    @PostMapping("/api/board/{boardId}/reply")
+//    public ResponseDto<Integer> replySave(@PathVariable int boardId, @RequestBody Reply reply, @AuthenticationPrincipal PrincipalDetail principal) {
+    public ResponseDto<Integer> replySave(@RequestBody ReplySaveRequestDto replySaveRequestDto) {
+        //
+        boardService.writeReply(replySaveRequestDto);
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }
 

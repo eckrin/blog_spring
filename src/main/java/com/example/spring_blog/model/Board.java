@@ -1,5 +1,6 @@
 package com.example.spring_blog.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -37,7 +38,9 @@ public class Board {
 
     @OneToMany(mappedBy = "board", fetch = FetchType.EAGER) // 연관관계의 주인이 아니다.
 //    @JoinColumn(name="replyId") >> fk는 필요가 없다. DB는 여러 값을 가질 수 없으므로 fk는 reply가 갖고있으면 됨
-    private List<Reply> reply;
+    @JsonIgnoreProperties({"board"}) //Reply에서 다시 Board board를 호출할경우 getter 호출 X
+    @OrderBy("id desc") //id 내림차순
+    private List<Reply> replies;
 
     @CreationTimestamp //데이터가 insert/update시 자동으로 값 배정
     private Timestamp createDate;
