@@ -36,7 +36,12 @@ public class Board {
     @JoinColumn(name="userId")
     private User user; //DB는 오브젝트를 저장할 수 없으므로 FK 사용
 
-    @OneToMany(mappedBy = "board", fetch = FetchType.EAGER) // 연관관계의 주인이 아니다.
+    @OneToMany(
+            mappedBy = "board",
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.REMOVE
+//            orphanRemoval = true
+    ) // 연관관계의 주인이 아니다.
 //    @JoinColumn(name="replyId") >> fk는 필요가 없다. DB는 여러 값을 가질 수 없으므로 fk는 reply가 갖고있으면 됨
     @JsonIgnoreProperties({"board"}) //Reply에서 다시 Board board를 호출할경우 getter 호출 X
     @OrderBy("id desc") //id 내림차순
