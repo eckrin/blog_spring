@@ -1,6 +1,6 @@
 package com.example.spring_blog.service;
 
-import com.example.spring_blog.config.auth.PrincipalDetail;
+
 import com.example.spring_blog.dto.ReplySaveRequestDto;
 import com.example.spring_blog.model.Board;
 import com.example.spring_blog.model.Reply;
@@ -86,5 +86,10 @@ public class BoardService {
 //
 //        replyRepository.save(reply);
         replyRepository.mySave(replySaveRequestDto.getUserId(), replySaveRequestDto.getBoardId(), replySaveRequestDto.getContent()); //위처럼 할수도있는데 네이티브 쿼리 이용해서 직접 넣어주기
+    }
+
+    @Transactional
+    public void deleteReply(int replyId) {
+        replyRepository.deleteById(replyId);
     }
 }

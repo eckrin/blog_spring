@@ -1,6 +1,5 @@
 package com.example.spring_blog.config;
 
-import com.example.spring_blog.config.auth.PrincipalDetail;
 import com.example.spring_blog.config.auth.PrincipalDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
