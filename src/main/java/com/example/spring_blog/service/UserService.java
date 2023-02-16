@@ -37,11 +37,21 @@ public class UserService {
         User persistance = userRepository.findById(user.getId()).orElseThrow(()-> {
             return new IllegalArgumentException("회원 찾기 실패");
         });
-        String rawPassword = user.getPassword();
-        String encPassword = encode.encode(rawPassword);
-        persistance.setPassword(encPassword);
-        persistance.setEmail(user.getEmail());
+
+        //validation - oauth값이 있으면 pwd랑 email수정 불가 (post공격 방지)
+        if(persistance.getOauth()==null || persistance.getOauth().equals("")) {
+            String rawPassword = user.getPassword();
+            String encPassword = encode.encode(rawPassword);
+            persistance.setPassword(encPassword);
+            persistance.setEmail(user.getEmail());
+        }
         //update 함수 종료시 자동 트랜잭션 커밋
+    }
+
+    @Transactional
+    public User findMember(String username) {
+        //회원이 없을 경우 빈 객체를 리턴
+        return userRepository.findByUsername(username).orElseGet(()->new User());
     }
 
 //    @Transactional(readOnly = true) //트랜잭션의 정합성 유지

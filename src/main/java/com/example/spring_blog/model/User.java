@@ -23,7 +23,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY) //numbering전략: DB의 전략 따라가기
     private int id; //sequence, auto_increment
 
-    @Column(nullable=false, length = 30, unique = true)
+    @Column(nullable=false, length = 100, unique = true)
     private String username; //아이디
 
     @Column(nullable = false, length = 100) //해시를 이용하여 암호화
@@ -35,6 +35,8 @@ public class User {
 //    @ColumnDefault("user")
     @Enumerated(EnumType.STRING)
     private RoleType role; //Enum을 쓰는게 좋다. 도메인(범위) 설정 가능
+
+    private String oauth; //kakao, google 등
 
     @CreationTimestamp // 시간이 자동으로 입력
     private Timestamp createDate;
