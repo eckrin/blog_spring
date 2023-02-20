@@ -44,7 +44,7 @@ let index = {
     },
 
     update: function() {
-//        alert("user의 save함수 호출됨");
+//        alert("user의 update함수 호출됨");
         let data = {
             id:$("#id").val(),
             username:$("#username").val(),
