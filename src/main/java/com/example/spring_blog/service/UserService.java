@@ -126,24 +126,24 @@ public class UserService {
 
     @Transactional
     public KakaoProfileDto requestKakaoUserProfile(OAuthTokenDto oauthToken) {
-        RestTemplate rt2 = new RestTemplate();
-        HttpHeaders headers2 = new HttpHeaders();
-        headers2.add("Authorization", "Bearer "+oauthToken.getAccess_token());
-        headers2.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+        RestTemplate rt = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Bearer "+oauthToken.getAccess_token());
+        headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 
-        HttpEntity<MultiValueMap<String, String>> kakaoProfileRequest = new HttpEntity<>(headers2);
+        HttpEntity<MultiValueMap<String, String>> kakaoProfileRequest = new HttpEntity<>(headers);
 
-        ResponseEntity<String> response2 = rt2.exchange(
+        ResponseEntity<String> response = rt.exchange(
                 "https://kapi.kakao.com/v2/user/me",
                 HttpMethod.POST,
                 kakaoProfileRequest,
                 String.class //응답받을 타입
         );
 
-        ObjectMapper objectMapper2 = new ObjectMapper();
+        ObjectMapper objectMapper = new ObjectMapper();
         KakaoProfileDto kakaoProfile;
         try {
-            kakaoProfile = objectMapper2.readValue(response2.getBody(), KakaoProfileDto.class);
+            kakaoProfile = objectMapper.readValue(response.getBody(), KakaoProfileDto.class);
         } catch (JsonMappingException e) {
             throw new RuntimeException(e);
         } catch (JsonProcessingException e) {
